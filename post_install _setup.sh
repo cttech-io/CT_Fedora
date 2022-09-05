@@ -25,12 +25,12 @@ dnf check-upgrade
 sudo dnf upgrade -y
 
 #Install Packages
-sudo dnf install zsh neofetch ulauncher gnome-tweaks tldr git htop btop -y
+sudo dnf install zsh neofetch ulauncher gnome-tweaks tldr git htop btop sqlite -y
 
 #Setup Terminal stuff (Oh my ZSH, Powerlevel10k theme & tldr)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-mkdir ~/.fonts
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -P ~/.fonts
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -P /usr/share/fonts
+fc-cache -vf
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 tldr --update
