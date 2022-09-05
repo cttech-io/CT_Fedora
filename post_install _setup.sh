@@ -39,6 +39,7 @@ flatpak install app/com.raggesilver.BlackBox/x86_64/stable -y
 flatpak install flathub com.mattjakeman.ExtensionManager -y
 flatpak install flathub org.remmina.Remmina -y
 flatpak install flathub org.chromium.Chromium -y
+flatpak install flathub com.spotify.Client -y
 
 #Install Gnome Extensions
 # Arc Menu
