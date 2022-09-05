@@ -19,7 +19,7 @@ dnf check-upgrade
 sudo dnf upgrade -y
 
 #Install Packages
-sudo dnf install zsh neofetch ulauncher gnome-tweaks tldr git -y
+sudo dnf install zsh neofetch ulauncher gnome-tweaks tldr git htop btop -y
 
 #Setup Terminal stuff (Oh my ZSH, Powerlevel10k theme & tldr)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
