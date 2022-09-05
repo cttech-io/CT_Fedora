@@ -2,6 +2,12 @@
 ### This is a post install script for Fedora that tweaks some settings, install packages, enables proper Flatpak support and can install NVIDIA drivers ###
 ### Author: Charlie Taylor ###
 
+#Check if script is run as root
+if [[ $EUID -ne 0 ]]; then
+  echo "You must be a root user to run this script, please run sudo ./install.sh" 2>&1
+  exit 1
+fi
+
 #Edit DNF Repo settings
 echo max_parallel_downloads=10 >> /etc/dnf/dnf.conf
 echo fastestmirror=True >> /etc/dnf/dnf.conf
