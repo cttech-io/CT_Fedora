@@ -61,7 +61,7 @@ sed -i s/^SELINUX=.*$/SELINUX=permissive/ /etc/selinux/config
 setenforce 0
 
 #Checks if system is UEFI and install firmware updates if it is.
-if [ -f "$UEFI" ];
+if [ -d "$UEFI" ];
 then
     sudo fwupdmgr refresh --force
 	sudo fwupdmgr get-updates
