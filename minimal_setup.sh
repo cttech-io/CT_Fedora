@@ -8,20 +8,24 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+#Set Variables
+UEFI=/sys/firmware/efi
+
 #Edit DNF Repo settings
 echo max_parallel_downloads=10 >> /etc/dnf/dnf.conf
 echo fastestmirror=True >> /etc/dnf/dnf.conf
 
 #Update Repos & Packages
 dnf check-upgrade
+sudo dnf update
 sudo dnf upgrade -y
 
 #Add RPM Fusion Repo
-sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y
+sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 
 #Update Repos & Packages again
-dnf check-upgrade
+sudo dnf update
 sudo dnf upgrade -y
 
 #Install Base Packages
@@ -29,12 +33,13 @@ sudo dnf install @base-x gnome-shell gnome-terminal nautilus -y
 sudo dnf group install "Hardware Support" -y
 
 #Install userland packages
-firefox flatpak gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk ffmpegthumbnailer gnome-system-monitor htop-y
+firefox flatpak gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk ffmpegthumbnailer gnome-system-monitor zsh htop tldr neofetch -y
 
 #Set Graphical boot as default 
 sudo systemctl set-default graphical.target
 
 #Setup Terminal stuff (Oh my ZSH, Powerlevel10k theme & tldr)
+chsh --shell /usr/bin/zsh 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -P /usr/share/fonts
 fc-cache -vf
@@ -46,13 +51,7 @@ tldr --update
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 #Install Flatpaks
-flatpak install app/com.bitwarden.desktop/x86_64/stable -y
-flatpak install flathub com.visualstudio.code -y
-flatpak install app/com.raggesilver.BlackBox/x86_64/stable -y
-flatpak install flathub com.mattjakeman.ExtensionManager -y
-flatpak install flathub org.remmina.Remmina -y
-flatpak install flathub org.chromium.Chromium -y
-flatpak install flathub com.spotify.Client -y
+flatpak install flathub com.spotify.Client org.chromium.Chromium org.remmina.Remmina com.mattjakeman.ExtensionManager app/com.bitwarden.desktop/x86_64/stable com.visualstudio.code app/com.raggesilver.BlackBox/x86_64/stable -y
 
 #Disable un-needed services
 sudo systemctl disable cups NetworkManager-wait-online.service
@@ -61,10 +60,16 @@ sudo systemctl disable cups NetworkManager-wait-online.service
 sed -i s/^SELINUX=.*$/SELINUX=permissive/ /etc/selinux/config
 setenforce 0
 
-#Check for and install firmware updates
-sudo fwupdmgr refresh --force
-sudo fwupdmgr get-updates
-sudo fwupdmgr update
+#Checks if system is UEFI and install firmware updates if it is.
+if [ -f "$UEFI" ];
+then
+    sudo fwupdmgr refresh --force
+	sudo fwupdmgr get-updates
+	sudo fwupdmgr update
+else
+	echo "System is not using UEFI. Skipping firmware updates."
+	sleep 2
+fi
 
 #Install NVIDIA Drivers
 read -p "Would you like to install the proprietary NVIDIA Drivers? (Yes/No)" choice
