@@ -86,6 +86,7 @@ fi
 read -p "Setup of this system is complete. Reboot is recommended. Would you like to do this now?" reboot_choice
 if [[ "$reboot_choice" =~ ^[Yy] ]]
 	then
+		rm -rf ~/CT_Fedora
 		echo "Rebooting in 10 seconds"
 		sleep 10
 		sudo reboot now
