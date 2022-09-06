@@ -29,17 +29,17 @@ sudo dnf update
 sudo dnf upgrade -y
 
 #Install Base Packages
-sudo dnf install @base-x gnome-shell gnome-terminal nautilus -y
+sudo dnf install @base-x gnome-shell gnome-terminal nautilus util-linux-user wget -y
 sudo dnf group install "Hardware Support" -y
-
-#Install userland packages
-firefox flatpak gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk ffmpegthumbnailer gnome-system-monitor zsh htop tldr neofetch -y
 
 #Set Graphical boot as default 
 sudo systemctl set-default graphical.target
 
+#Install userland packages
+sudo dnf install firefox flatpak gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk ffmpegthumbnailer gnome-system-monitor zsh htop tldr neofetch -y
+
 #Setup Terminal stuff (Oh my ZSH, Powerlevel10k theme & tldr)
-chsh --shell /usr/bin/zsh 
+sudo chsh --shell /usr/bin/zsh $USER
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -P /usr/share/fonts
 fc-cache -vf
