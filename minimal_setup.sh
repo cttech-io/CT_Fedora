@@ -29,7 +29,7 @@ sudo dnf update
 sudo dnf upgrade -y
 
 #Install Base Packages
-sudo dnf install @base-x gnome-shell gnome-terminal nautilus util-linux-user sqlite wget vim -y
+sudo dnf install @base-x gnome-shell gnome-terminal nautilus util-linux-user sqlite wget vim samba-client -y
 sudo dnf group install "Hardware Support" -y
 
 #Set Graphical boot as default 
