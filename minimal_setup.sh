@@ -36,7 +36,7 @@ sudo dnf group install "Hardware Support" -y
 sudo systemctl set-default graphical.target
 
 #Install userland packages
-sudo dnf install firefox flatpak gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk ffmpegthumbnailer gnome-system-monitor zsh htop tldr neofetch -y
+sudo dnf install firefox flatpak gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk ffmpegthumbnailer gnome-system-monitor zsh htop tldr neofetch ulauncher -y
 
 #Setup Terminal stuff (Oh my ZSH, Powerlevel10k theme & tldr)
 sudo chsh --shell /usr/bin/zsh $USER
