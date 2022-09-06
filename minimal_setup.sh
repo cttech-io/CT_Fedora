@@ -29,14 +29,14 @@ sudo dnf update
 sudo dnf upgrade -y
 
 #Install Base Packages
-sudo dnf install @base-x gnome-shell gnome-terminal nautilus util-linux-user sqlite wget vim samba-client -y
+sudo dnf install @base-x gnome-shell gnome-terminal nautilus util-linux-user sqlite wget vim samba-client dvfs-smb -y
 sudo dnf group install "Hardware Support" -y
 
 #Set Graphical boot as default 
 sudo systemctl set-default graphical.target
 
 #Install userland packages
-sudo dnf install firefox flatpak gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk ffmpegthumbnailer gnome-system-monitor zsh htop tldr neofetch ulauncher -y
+sudo dnf install firefox flatpak gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk ffmpegthumbnailer gnome-system-monitor zsh htop tldr neofetch ulauncher chrome-gnome-shell gnome-tweaks gnome-menus-devel -y
 
 #Setup Terminal stuff (Oh my ZSH, Powerlevel10k theme & tldr)
 sudo chsh --shell /usr/bin/zsh $USER
