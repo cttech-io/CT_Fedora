@@ -17,7 +17,7 @@ echo fastestmirror=True >> /etc/dnf/dnf.conf
 
 #Update Repos & Packages
 dnf check-upgrade
-sudo dnf update
+sudo dnf update -y
 sudo dnf upgrade -y
 
 #Add RPM Fusion Repo
