@@ -71,15 +71,24 @@ else
 	sleep 2
 fi
 
-#Install NVIDIA Drivers
-read -p "Would you like to install the proprietary NVIDIA Drivers? (Yes/No)" choice
-if [[ "$choice" =~ ^[Yy] ]]
+#Check for NVIDIA GPU and ask if proprietary drivers should be installed
+nvidia_check=$(/sbin/lspci | grep -i '.* vga .* nvidia .*')
+
+shopt -s nocasematch
+
+if [[ $nvidia_check == *' nvidia '* ]]; then
+  printf 'NVIDIA GPU is present:  %s\n' "$nvidia_check"
+  read -p "Would you like to install the proprietary NVIDIA Drivers? (Yes/No)" choice
+	if [[ "$choice" =~ ^[Yy] ]]
 	then
 		echo "Okay, installing NVIDIA drivers."
 		sudo dnf install akmod-nvidia -y && sudo dnf install xorg-x11-drv-nvidia-cuda
 	else
 		echo "Okay, Not installing NVIDIA drivers.
 		"
+	fi
+	else
+  	echo "NVIDIA GPU is not present."
 fi
 
 #Setup complete. Ask user if they want to reboot system now
