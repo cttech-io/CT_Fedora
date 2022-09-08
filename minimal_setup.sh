@@ -10,6 +10,7 @@ fi
 
 #Set Variables
 UEFI=/sys/firmware/efi
+nvidia_check=$(/sbin/lspci | grep -i '.* vga .* nvidia .*')
 
 #Edit DNF Repo settings
 echo max_parallel_downloads=10 >> /etc/dnf/dnf.conf
@@ -72,8 +73,6 @@ else
 fi
 
 #Check for NVIDIA GPU and ask if proprietary drivers should be installed
-nvidia_check=$(/sbin/lspci | grep -i '.* vga .* nvidia .*')
-
 shopt -s nocasematch
 
 if [[ $nvidia_check == *' nvidia '* ]]; then
