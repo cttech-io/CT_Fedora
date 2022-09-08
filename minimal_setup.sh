@@ -54,7 +54,7 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 flatpak install flathub com.spotify.Client org.chromium.Chromium org.remmina.Remmina com.mattjakeman.ExtensionManager app/com.bitwarden.desktop/x86_64/stable com.visualstudio.code app/com.raggesilver.BlackBox/x86_64/stable -y
 
 #Disable un-needed services
-sudo systemctl disable cups NetworkManager-wait-online.service
+sudo systemctl disable cups.service NetworkManager-wait-online.service sshd.service ModemManager.service
 
 #Set SELinux to Permissive mode
 sed -i s/^SELINUX=.*$/SELINUX=permissive/ /etc/selinux/config
